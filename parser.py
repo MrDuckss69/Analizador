@@ -3,8 +3,8 @@ from lexer import tokens, variables  # Importar los tokens y el conjunto de vari
 
 # Definir la gramática
 def p_programa(p):
-    '''programa : PROGRAMA cuerpo END'''
-    p[0] = ('programa', p[2])
+    '''programa : PROGRAMA IDENTIFICADOR LPAR RPAR LCOR cuerpo RCOR END PUNTOCOMA'''
+    p[0] = ('programa', p[2], p[6])
 
 def p_cuerpo(p):
     '''cuerpo : declaraciones'''
@@ -40,16 +40,16 @@ def p_lista_identificadores(p):
         p[0] = p[1] + [p[3]]
 
 def p_asignacion(p):
-    '''asignacion : IDENTIFICADOR ASIGNAR expresion'''
+    '''asignacion : VARIABLE ASIGNAR expresion'''
     p[0] = ('asignacion', p[1], p[3])
 
 def p_lectura(p):
-    '''lectura : READ IDENTIFICADOR'''
+    '''lectura : READ VARIABLE'''
     p[0] = ('lectura', p[2])
 
 def p_escritura(p):
     '''escritura : PRINTF LPAR CADENA RPAR
-                 | PRINTF LPAR CADENA COMA IDENTIFICADOR RPAR'''
+                 | PRINTF LPAR CADENA COMA VARIABLE RPAR'''
     if len(p) == 5:
         p[0] = ('escritura', p[3])
     else:
@@ -75,7 +75,7 @@ def p_termino(p):
 
 def p_factor(p):
     '''factor : ENTERO
-              | IDENTIFICADOR
+              | VARIABLE
               | LPAR expresion RPAR
               | CADENA'''
     if len(p) == 2:
@@ -85,7 +85,10 @@ def p_factor(p):
 
 # Manejo de errores
 def p_error(p):
-    print(f"Error de sintaxis en '{p.value}'")
+    if p:
+        raise SyntaxError(f"Error de sintaxis en '{p.value}' en la línea {p.lineno}")
+    else:
+        raise SyntaxError("Error de sintaxis en EOF")
 
 # Construir el parser
 parser = yacc.yacc()
@@ -128,5 +131,5 @@ def parse_syntax(data):
     try:
         result = parse(data)
         return {"correct": True, "message": "Análisis sintáctico correcto", "result": result}
-    except Exception as e:
+    except SyntaxError as e:
         return {"correct": False, "message": str(e)}

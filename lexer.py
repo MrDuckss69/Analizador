@@ -8,7 +8,6 @@ reservadas = {
     'int': 'INT',
     'read': 'READ',
     'printf': 'PRINTF',
-    'println': 'PRINTLN',
     'end': 'END',
     'if': 'SI',
     'else': 'SINO',

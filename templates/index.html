@@ -17,6 +17,13 @@
 
         <div class="tables-container">
 
+            {% if syntax_result %}
+                <h2>Resultado del Análisis Sintáctico:</h2>
+                <div class="{{ 'sintactic-result' if syntax_result.correct else 'sintactic-error' }}">
+                    {{ syntax_result.message }}
+                </div>
+            {% endif %}
+
             <h2>Tokens Identificados:</h2>
             <div class="table-box">
                 <table border="1">
@@ -75,11 +82,6 @@
                         </tr>
                     </tbody>
                 </table>
-            </div>
-
-            <h2>Resultado Sintáctico:</h2>
-            <div class="{{ 'sintactic-result' if syntax_result.correct else 'sintactic-error' }}">
-                {{ syntax_result.message }}
             </div>
             
         </div>

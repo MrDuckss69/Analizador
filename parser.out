@@ -1,0 +1,673 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    AND
+    COMADOS
+    DIFERENTE
+    IGUAL
+    LCOR
+    LLLA
+    MAYORDER
+    MAYORIGUAL
+    MAYORIZQ
+    MAYORQUE
+    MENORIGUAL
+    MENORQUE
+    MIENTRAS
+    NOT
+    NUMERAL
+    OR
+    PARA
+    PRINTLN
+    RCOR
+    RLLA
+    SI
+    SINO
+    VARIABLE
+
+Grammar
+
+Rule 0     S' -> programa
+Rule 1     programa -> PROGRAMA cuerpo END
+Rule 2     cuerpo -> declaraciones
+Rule 3     declaraciones -> declaraciones declaracion
+Rule 4     declaraciones -> declaracion
+Rule 5     declaracion -> tipo lista_identificadores PUNTOCOMA
+Rule 6     declaracion -> asignacion PUNTOCOMA
+Rule 7     declaracion -> lectura PUNTOCOMA
+Rule 8     declaracion -> escritura PUNTOCOMA
+Rule 9     tipo -> INT
+Rule 10    lista_identificadores -> IDENTIFICADOR
+Rule 11    lista_identificadores -> lista_identificadores COMA IDENTIFICADOR
+Rule 12    asignacion -> IDENTIFICADOR ASIGNAR expresion
+Rule 13    lectura -> READ IDENTIFICADOR
+Rule 14    escritura -> PRINTF LPAR CADENA RPAR
+Rule 15    escritura -> PRINTF LPAR CADENA COMA IDENTIFICADOR RPAR
+Rule 16    expresion -> expresion SUMA termino
+Rule 17    expresion -> expresion RESTA termino
+Rule 18    expresion -> termino
+Rule 19    termino -> termino MULT factor
+Rule 20    termino -> termino DIV factor
+Rule 21    termino -> factor
+Rule 22    factor -> ENTERO
+Rule 23    factor -> IDENTIFICADOR
+Rule 24    factor -> LPAR expresion RPAR
+Rule 25    factor -> CADENA
+
+Terminals, with rules where they appear
+
+AND                  : 
+ASIGNAR              : 12
+CADENA               : 14 15 25
+COMA                 : 11 15
+COMADOS              : 
+DIFERENTE            : 
+DIV                  : 20
+END                  : 1
+ENTERO               : 22
+IDENTIFICADOR        : 10 11 12 13 15 23
+IGUAL                : 
+INT                  : 9
+LCOR                 : 
+LLLA                 : 
+LPAR                 : 14 15 24
+MAYORDER             : 
+MAYORIGUAL           : 
+MAYORIZQ             : 
+MAYORQUE             : 
+MENORIGUAL           : 
+MENORQUE             : 
+MIENTRAS             : 
+MULT                 : 19
+NOT                  : 
+NUMERAL              : 
+OR                   : 
+PARA                 : 
+PRINTF               : 14 15
+PRINTLN              : 
+PROGRAMA             : 1
+PUNTOCOMA            : 5 6 7 8
+RCOR                 : 
+READ                 : 13
+RESTA                : 17
+RLLA                 : 
+RPAR                 : 14 15 24
+SI                   : 
+SINO                 : 
+SUMA                 : 16
+VARIABLE             : 
+error                : 
+
+Nonterminals, with rules where they appear
+
+asignacion           : 6
+cuerpo               : 1
+declaracion          : 3 4
+declaraciones        : 2 3
+escritura            : 8
+expresion            : 12 16 17 24
+factor               : 19 20 21
+lectura              : 7
+lista_identificadores : 5 11
+programa             : 0
+termino              : 16 17 18 19 20
+tipo                 : 5
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . programa
+    (1) programa -> . PROGRAMA cuerpo END
+
+    PROGRAMA        shift and go to state 2
+
+    programa                       shift and go to state 1
+
+state 1
+
+    (0) S' -> programa .
+
+
+
+state 2
+
+    (1) programa -> PROGRAMA . cuerpo END
+    (2) cuerpo -> . declaraciones
+    (3) declaraciones -> . declaraciones declaracion
+    (4) declaraciones -> . declaracion
+    (5) declaracion -> . tipo lista_identificadores PUNTOCOMA
+    (6) declaracion -> . asignacion PUNTOCOMA
+    (7) declaracion -> . lectura PUNTOCOMA
+    (8) declaracion -> . escritura PUNTOCOMA
+    (9) tipo -> . INT
+    (12) asignacion -> . IDENTIFICADOR ASIGNAR expresion
+    (13) lectura -> . READ IDENTIFICADOR
+    (14) escritura -> . PRINTF LPAR CADENA RPAR
+    (15) escritura -> . PRINTF LPAR CADENA COMA IDENTIFICADOR RPAR
+
+    INT             shift and go to state 10
+    IDENTIFICADOR   shift and go to state 11
+    READ            shift and go to state 12
+    PRINTF          shift and go to state 13
+
+    cuerpo                         shift and go to state 3
+    declaraciones                  shift and go to state 4
+    declaracion                    shift and go to state 5
+    tipo                           shift and go to state 6
+    asignacion                     shift and go to state 7
+    lectura                        shift and go to state 8
+    escritura                      shift and go to state 9
+
+state 3
+
+    (1) programa -> PROGRAMA cuerpo . END
+
+    END             shift and go to state 14
+
+
+state 4
+
+    (2) cuerpo -> declaraciones .
+    (3) declaraciones -> declaraciones . declaracion
+    (5) declaracion -> . tipo lista_identificadores PUNTOCOMA
+    (6) declaracion -> . asignacion PUNTOCOMA
+    (7) declaracion -> . lectura PUNTOCOMA
+    (8) declaracion -> . escritura PUNTOCOMA
+    (9) tipo -> . INT
+    (12) asignacion -> . IDENTIFICADOR ASIGNAR expresion
+    (13) lectura -> . READ IDENTIFICADOR
+    (14) escritura -> . PRINTF LPAR CADENA RPAR
+    (15) escritura -> . PRINTF LPAR CADENA COMA IDENTIFICADOR RPAR
+
+    END             reduce using rule 2 (cuerpo -> declaraciones .)
+    INT             shift and go to state 10
+    IDENTIFICADOR   shift and go to state 11
+    READ            shift and go to state 12
+    PRINTF          shift and go to state 13
+
+    declaracion                    shift and go to state 15
+    tipo                           shift and go to state 6
+    asignacion                     shift and go to state 7
+    lectura                        shift and go to state 8
+    escritura                      shift and go to state 9
+
+state 5
+
+    (4) declaraciones -> declaracion .
+
+    INT             reduce using rule 4 (declaraciones -> declaracion .)
+    IDENTIFICADOR   reduce using rule 4 (declaraciones -> declaracion .)
+    READ            reduce using rule 4 (declaraciones -> declaracion .)
+    PRINTF          reduce using rule 4 (declaraciones -> declaracion .)
+    END             reduce using rule 4 (declaraciones -> declaracion .)
+
+
+state 6
+
+    (5) declaracion -> tipo . lista_identificadores PUNTOCOMA
+    (10) lista_identificadores -> . IDENTIFICADOR
+    (11) lista_identificadores -> . lista_identificadores COMA IDENTIFICADOR
+
+    IDENTIFICADOR   shift and go to state 17
+
+    lista_identificadores          shift and go to state 16
+
+state 7
+
+    (6) declaracion -> asignacion . PUNTOCOMA
+
+    PUNTOCOMA       shift and go to state 18
+
+
+state 8
+
+    (7) declaracion -> lectura . PUNTOCOMA
+
+    PUNTOCOMA       shift and go to state 19
+
+
+state 9
+
+    (8) declaracion -> escritura . PUNTOCOMA
+
+    PUNTOCOMA       shift and go to state 20
+
+
+state 10
+
+    (9) tipo -> INT .
+
+    IDENTIFICADOR   reduce using rule 9 (tipo -> INT .)
+
+
+state 11
+
+    (12) asignacion -> IDENTIFICADOR . ASIGNAR expresion
+
+    ASIGNAR         shift and go to state 21
+
+
+state 12
+
+    (13) lectura -> READ . IDENTIFICADOR
+
+    IDENTIFICADOR   shift and go to state 22
+
+
+state 13
+
+    (14) escritura -> PRINTF . LPAR CADENA RPAR
+    (15) escritura -> PRINTF . LPAR CADENA COMA IDENTIFICADOR RPAR
+
+    LPAR            shift and go to state 23
+
+
+state 14
+
+    (1) programa -> PROGRAMA cuerpo END .
+
+    $end            reduce using rule 1 (programa -> PROGRAMA cuerpo END .)
+
+
+state 15
+
+    (3) declaraciones -> declaraciones declaracion .
+
+    INT             reduce using rule 3 (declaraciones -> declaraciones declaracion .)
+    IDENTIFICADOR   reduce using rule 3 (declaraciones -> declaraciones declaracion .)
+    READ            reduce using rule 3 (declaraciones -> declaraciones declaracion .)
+    PRINTF          reduce using rule 3 (declaraciones -> declaraciones declaracion .)
+    END             reduce using rule 3 (declaraciones -> declaraciones declaracion .)
+
+
+state 16
+
+    (5) declaracion -> tipo lista_identificadores . PUNTOCOMA
+    (11) lista_identificadores -> lista_identificadores . COMA IDENTIFICADOR
+
+    PUNTOCOMA       shift and go to state 24
+    COMA            shift and go to state 25
+
+
+state 17
+
+    (10) lista_identificadores -> IDENTIFICADOR .
+
+    PUNTOCOMA       reduce using rule 10 (lista_identificadores -> IDENTIFICADOR .)
+    COMA            reduce using rule 10 (lista_identificadores -> IDENTIFICADOR .)
+
+
+state 18
+
+    (6) declaracion -> asignacion PUNTOCOMA .
+
+    INT             reduce using rule 6 (declaracion -> asignacion PUNTOCOMA .)
+    IDENTIFICADOR   reduce using rule 6 (declaracion -> asignacion PUNTOCOMA .)
+    READ            reduce using rule 6 (declaracion -> asignacion PUNTOCOMA .)
+    PRINTF          reduce using rule 6 (declaracion -> asignacion PUNTOCOMA .)
+    END             reduce using rule 6 (declaracion -> asignacion PUNTOCOMA .)
+
+
+state 19
+
+    (7) declaracion -> lectura PUNTOCOMA .
+
+    INT             reduce using rule 7 (declaracion -> lectura PUNTOCOMA .)
+    IDENTIFICADOR   reduce using rule 7 (declaracion -> lectura PUNTOCOMA .)
+    READ            reduce using rule 7 (declaracion -> lectura PUNTOCOMA .)
+    PRINTF          reduce using rule 7 (declaracion -> lectura PUNTOCOMA .)
+    END             reduce using rule 7 (declaracion -> lectura PUNTOCOMA .)
+
+
+state 20
+
+    (8) declaracion -> escritura PUNTOCOMA .
+
+    INT             reduce using rule 8 (declaracion -> escritura PUNTOCOMA .)
+    IDENTIFICADOR   reduce using rule 8 (declaracion -> escritura PUNTOCOMA .)
+    READ            reduce using rule 8 (declaracion -> escritura PUNTOCOMA .)
+    PRINTF          reduce using rule 8 (declaracion -> escritura PUNTOCOMA .)
+    END             reduce using rule 8 (declaracion -> escritura PUNTOCOMA .)
+
+
+state 21
+
+    (12) asignacion -> IDENTIFICADOR ASIGNAR . expresion
+    (16) expresion -> . expresion SUMA termino
+    (17) expresion -> . expresion RESTA termino
+    (18) expresion -> . termino
+    (19) termino -> . termino MULT factor
+    (20) termino -> . termino DIV factor
+    (21) termino -> . factor
+    (22) factor -> . ENTERO
+    (23) factor -> . IDENTIFICADOR
+    (24) factor -> . LPAR expresion RPAR
+    (25) factor -> . CADENA
+
+    ENTERO          shift and go to state 30
+    IDENTIFICADOR   shift and go to state 26
+    LPAR            shift and go to state 31
+    CADENA          shift and go to state 32
+
+    expresion                      shift and go to state 27
+    termino                        shift and go to state 28
+    factor                         shift and go to state 29
+
+state 22
+
+    (13) lectura -> READ IDENTIFICADOR .
+
+    PUNTOCOMA       reduce using rule 13 (lectura -> READ IDENTIFICADOR .)
+
+
+state 23
+
+    (14) escritura -> PRINTF LPAR . CADENA RPAR
+    (15) escritura -> PRINTF LPAR . CADENA COMA IDENTIFICADOR RPAR
+
+    CADENA          shift and go to state 33
+
+
+state 24
+
+    (5) declaracion -> tipo lista_identificadores PUNTOCOMA .
+
+    INT             reduce using rule 5 (declaracion -> tipo lista_identificadores PUNTOCOMA .)
+    IDENTIFICADOR   reduce using rule 5 (declaracion -> tipo lista_identificadores PUNTOCOMA .)
+    READ            reduce using rule 5 (declaracion -> tipo lista_identificadores PUNTOCOMA .)
+    PRINTF          reduce using rule 5 (declaracion -> tipo lista_identificadores PUNTOCOMA .)
+    END             reduce using rule 5 (declaracion -> tipo lista_identificadores PUNTOCOMA .)
+
+
+state 25
+
+    (11) lista_identificadores -> lista_identificadores COMA . IDENTIFICADOR
+
+    IDENTIFICADOR   shift and go to state 34
+
+
+state 26
+
+    (23) factor -> IDENTIFICADOR .
+
+    MULT            reduce using rule 23 (factor -> IDENTIFICADOR .)
+    DIV             reduce using rule 23 (factor -> IDENTIFICADOR .)
+    SUMA            reduce using rule 23 (factor -> IDENTIFICADOR .)
+    RESTA           reduce using rule 23 (factor -> IDENTIFICADOR .)
+    PUNTOCOMA       reduce using rule 23 (factor -> IDENTIFICADOR .)
+    RPAR            reduce using rule 23 (factor -> IDENTIFICADOR .)
+
+
+state 27
+
+    (12) asignacion -> IDENTIFICADOR ASIGNAR expresion .
+    (16) expresion -> expresion . SUMA termino
+    (17) expresion -> expresion . RESTA termino
+
+    PUNTOCOMA       reduce using rule 12 (asignacion -> IDENTIFICADOR ASIGNAR expresion .)
+    SUMA            shift and go to state 35
+    RESTA           shift and go to state 36
+
+
+state 28
+
+    (18) expresion -> termino .
+    (19) termino -> termino . MULT factor
+    (20) termino -> termino . DIV factor
+
+    SUMA            reduce using rule 18 (expresion -> termino .)
+    RESTA           reduce using rule 18 (expresion -> termino .)
+    PUNTOCOMA       reduce using rule 18 (expresion -> termino .)
+    RPAR            reduce using rule 18 (expresion -> termino .)
+    MULT            shift and go to state 37
+    DIV             shift and go to state 38
+
+
+state 29
+
+    (21) termino -> factor .
+
+    MULT            reduce using rule 21 (termino -> factor .)
+    DIV             reduce using rule 21 (termino -> factor .)
+    SUMA            reduce using rule 21 (termino -> factor .)
+    RESTA           reduce using rule 21 (termino -> factor .)
+    PUNTOCOMA       reduce using rule 21 (termino -> factor .)
+    RPAR            reduce using rule 21 (termino -> factor .)
+
+
+state 30
+
+    (22) factor -> ENTERO .
+
+    MULT            reduce using rule 22 (factor -> ENTERO .)
+    DIV             reduce using rule 22 (factor -> ENTERO .)
+    SUMA            reduce using rule 22 (factor -> ENTERO .)
+    RESTA           reduce using rule 22 (factor -> ENTERO .)
+    PUNTOCOMA       reduce using rule 22 (factor -> ENTERO .)
+    RPAR            reduce using rule 22 (factor -> ENTERO .)
+
+
+state 31
+
+    (24) factor -> LPAR . expresion RPAR
+    (16) expresion -> . expresion SUMA termino
+    (17) expresion -> . expresion RESTA termino
+    (18) expresion -> . termino
+    (19) termino -> . termino MULT factor
+    (20) termino -> . termino DIV factor
+    (21) termino -> . factor
+    (22) factor -> . ENTERO
+    (23) factor -> . IDENTIFICADOR
+    (24) factor -> . LPAR expresion RPAR
+    (25) factor -> . CADENA
+
+    ENTERO          shift and go to state 30
+    IDENTIFICADOR   shift and go to state 26
+    LPAR            shift and go to state 31
+    CADENA          shift and go to state 32
+
+    expresion                      shift and go to state 39
+    termino                        shift and go to state 28
+    factor                         shift and go to state 29
+
+state 32
+
+    (25) factor -> CADENA .
+
+    MULT            reduce using rule 25 (factor -> CADENA .)
+    DIV             reduce using rule 25 (factor -> CADENA .)
+    SUMA            reduce using rule 25 (factor -> CADENA .)
+    RESTA           reduce using rule 25 (factor -> CADENA .)
+    PUNTOCOMA       reduce using rule 25 (factor -> CADENA .)
+    RPAR            reduce using rule 25 (factor -> CADENA .)
+
+
+state 33
+
+    (14) escritura -> PRINTF LPAR CADENA . RPAR
+    (15) escritura -> PRINTF LPAR CADENA . COMA IDENTIFICADOR RPAR
+
+    RPAR            shift and go to state 40
+    COMA            shift and go to state 41
+
+
+state 34
+
+    (11) lista_identificadores -> lista_identificadores COMA IDENTIFICADOR .
+
+    PUNTOCOMA       reduce using rule 11 (lista_identificadores -> lista_identificadores COMA IDENTIFICADOR .)
+    COMA            reduce using rule 11 (lista_identificadores -> lista_identificadores COMA IDENTIFICADOR .)
+
+
+state 35
+
+    (16) expresion -> expresion SUMA . termino
+    (19) termino -> . termino MULT factor
+    (20) termino -> . termino DIV factor
+    (21) termino -> . factor
+    (22) factor -> . ENTERO
+    (23) factor -> . IDENTIFICADOR
+    (24) factor -> . LPAR expresion RPAR
+    (25) factor -> . CADENA
+
+    ENTERO          shift and go to state 30
+    IDENTIFICADOR   shift and go to state 26
+    LPAR            shift and go to state 31
+    CADENA          shift and go to state 32
+
+    termino                        shift and go to state 42
+    factor                         shift and go to state 29
+
+state 36
+
+    (17) expresion -> expresion RESTA . termino
+    (19) termino -> . termino MULT factor
+    (20) termino -> . termino DIV factor
+    (21) termino -> . factor
+    (22) factor -> . ENTERO
+    (23) factor -> . IDENTIFICADOR
+    (24) factor -> . LPAR expresion RPAR
+    (25) factor -> . CADENA
+
+    ENTERO          shift and go to state 30
+    IDENTIFICADOR   shift and go to state 26
+    LPAR            shift and go to state 31
+    CADENA          shift and go to state 32
+
+    termino                        shift and go to state 43
+    factor                         shift and go to state 29
+
+state 37
+
+    (19) termino -> termino MULT . factor
+    (22) factor -> . ENTERO
+    (23) factor -> . IDENTIFICADOR
+    (24) factor -> . LPAR expresion RPAR
+    (25) factor -> . CADENA
+
+    ENTERO          shift and go to state 30
+    IDENTIFICADOR   shift and go to state 26
+    LPAR            shift and go to state 31
+    CADENA          shift and go to state 32
+
+    factor                         shift and go to state 44
+
+state 38
+
+    (20) termino -> termino DIV . factor
+    (22) factor -> . ENTERO
+    (23) factor -> . IDENTIFICADOR
+    (24) factor -> . LPAR expresion RPAR
+    (25) factor -> . CADENA
+
+    ENTERO          shift and go to state 30
+    IDENTIFICADOR   shift and go to state 26
+    LPAR            shift and go to state 31
+    CADENA          shift and go to state 32
+
+    factor                         shift and go to state 45
+
+state 39
+
+    (24) factor -> LPAR expresion . RPAR
+    (16) expresion -> expresion . SUMA termino
+    (17) expresion -> expresion . RESTA termino
+
+    RPAR            shift and go to state 46
+    SUMA            shift and go to state 35
+    RESTA           shift and go to state 36
+
+
+state 40
+
+    (14) escritura -> PRINTF LPAR CADENA RPAR .
+
+    PUNTOCOMA       reduce using rule 14 (escritura -> PRINTF LPAR CADENA RPAR .)
+
+
+state 41
+
+    (15) escritura -> PRINTF LPAR CADENA COMA . IDENTIFICADOR RPAR
+
+    IDENTIFICADOR   shift and go to state 47
+
+
+state 42
+
+    (16) expresion -> expresion SUMA termino .
+    (19) termino -> termino . MULT factor
+    (20) termino -> termino . DIV factor
+
+    SUMA            reduce using rule 16 (expresion -> expresion SUMA termino .)
+    RESTA           reduce using rule 16 (expresion -> expresion SUMA termino .)
+    PUNTOCOMA       reduce using rule 16 (expresion -> expresion SUMA termino .)
+    RPAR            reduce using rule 16 (expresion -> expresion SUMA termino .)
+    MULT            shift and go to state 37
+    DIV             shift and go to state 38
+
+
+state 43
+
+    (17) expresion -> expresion RESTA termino .
+    (19) termino -> termino . MULT factor
+    (20) termino -> termino . DIV factor
+
+    SUMA            reduce using rule 17 (expresion -> expresion RESTA termino .)
+    RESTA           reduce using rule 17 (expresion -> expresion RESTA termino .)
+    PUNTOCOMA       reduce using rule 17 (expresion -> expresion RESTA termino .)
+    RPAR            reduce using rule 17 (expresion -> expresion RESTA termino .)
+    MULT            shift and go to state 37
+    DIV             shift and go to state 38
+
+
+state 44
+
+    (19) termino -> termino MULT factor .
+
+    MULT            reduce using rule 19 (termino -> termino MULT factor .)
+    DIV             reduce using rule 19 (termino -> termino MULT factor .)
+    SUMA            reduce using rule 19 (termino -> termino MULT factor .)
+    RESTA           reduce using rule 19 (termino -> termino MULT factor .)
+    PUNTOCOMA       reduce using rule 19 (termino -> termino MULT factor .)
+    RPAR            reduce using rule 19 (termino -> termino MULT factor .)
+
+
+state 45
+
+    (20) termino -> termino DIV factor .
+
+    MULT            reduce using rule 20 (termino -> termino DIV factor .)
+    DIV             reduce using rule 20 (termino -> termino DIV factor .)
+    SUMA            reduce using rule 20 (termino -> termino DIV factor .)
+    RESTA           reduce using rule 20 (termino -> termino DIV factor .)
+    PUNTOCOMA       reduce using rule 20 (termino -> termino DIV factor .)
+    RPAR            reduce using rule 20 (termino -> termino DIV factor .)
+
+
+state 46
+
+    (24) factor -> LPAR expresion RPAR .
+
+    MULT            reduce using rule 24 (factor -> LPAR expresion RPAR .)
+    DIV             reduce using rule 24 (factor -> LPAR expresion RPAR .)
+    SUMA            reduce using rule 24 (factor -> LPAR expresion RPAR .)
+    RESTA           reduce using rule 24 (factor -> LPAR expresion RPAR .)
+    PUNTOCOMA       reduce using rule 24 (factor -> LPAR expresion RPAR .)
+    RPAR            reduce using rule 24 (factor -> LPAR expresion RPAR .)
+
+
+state 47
+
+    (15) escritura -> PRINTF LPAR CADENA COMA IDENTIFICADOR . RPAR
+
+    RPAR            shift and go to state 48
+
+
+state 48
+
+    (15) escritura -> PRINTF LPAR CADENA COMA IDENTIFICADOR RPAR .
+
+    PUNTOCOMA       reduce using rule 15 (escritura -> PRINTF LPAR CADENA COMA IDENTIFICADOR RPAR .)
+

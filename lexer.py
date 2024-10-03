@@ -18,7 +18,6 @@ reservadas = {
 
 tokens = [
     'IDENTIFICADOR', 
-    'VARIABLE',  # Nuevo token para variables
     'ENTERO', 
     'ASIGNAR',  # = 
     'CADENA',  # Cadenas de texto
@@ -49,8 +48,12 @@ tokens = [
     'COMA',  # ,
     'COMADOS',  # ""
     'MAYORDER',  # <<
-    'MAYORIZQ',  # >>  
+    'MAYORIZQ',  # >>,
+    'VARIABLE'  # Añadimos VARIABLE a la lista de tokens
 ] + list(reservadas.values())  # Incluimos las palabras reservadas como tokens
+
+# Conjunto para almacenar variables declaradas
+variables = set()
 
 # Reglas de Tokens mediante Expresiones Regulares
 t_SUMA = r'\+'
@@ -80,29 +83,13 @@ t_NUMERAL = r'\#'
 t_MAYORDER = r'<<'
 t_MAYORIZQ = r'>>'
 
-# Bandera para indicar que estamos dentro de una declaración de variables
-variable_flag = False
-
-def t_INT(t):
-    r'int'
-    global variable_flag
-    t.type = 'INT'
-    variable_flag = True  # Activamos la bandera cuando encontramos un 'int'
-    return t
-
 # Reglas para identificadores y enteros
 def t_IDENTIFICADOR(t):
     r'[a-zA-Z_][a-zA-Z_0-9]*'
-    global variable_flag
-    # Si la bandera está activa, es una variable
-    if variable_flag:
-        t.type = 'VARIABLE'
-        # Si el siguiente token no es una coma o un punto y coma, apagamos la bandera
-        siguiente_token = t.lexer.lexdata[t.lexer.lexpos:t.lexer.lexpos+1]
-        if siguiente_token not in [',', ';']:
-            variable_flag = False
-    else:
-        t.type = reservadas.get(t.value, 'IDENTIFICADOR')  # Si es una palabra reservada, cambiar tipo
+    if t.value in reservadas:
+        t.type = reservadas[t.value]  # Si es una palabra reservada, cambiar tipo
+    elif t.value in variables:
+        t.type = 'VARIABLE'  # Si es una variable declarada, cambiar tipo
     return t
 
 def t_ENTERO(t):
@@ -112,6 +99,8 @@ def t_ENTERO(t):
 
 def t_CADENA(t):
     r'\".*?\"'
+    t.type = 'IDENTIFICADOR'  # Cambiar el tipo a IDENTIFICADOR
+    t.value = t.value.strip('"')  # Eliminar las comillas
     return t
 
 # Ignorar espacios y tabulaciones
@@ -147,5 +136,21 @@ def prueba(data):
         tok = analizador.token()
         if not tok:
             break
-        tokens.append((tok.lineno, tok.type, tok.value))
+        if tok.type == 'INT':  # Detectar declaración de variables
+            while True:
+                siguiente_tok = analizador.token()
+                if not siguiente_tok:
+                    break
+                if siguiente_tok.type == 'IDENTIFICADOR':
+                    variables.add(siguiente_tok.value)
+                    tokens.append((siguiente_tok.lineno, 'VARIABLE', siguiente_tok.value))
+                elif siguiente_tok.type == 'COMA':
+                    continue
+                elif siguiente_tok.type == 'PUNTOCOMA':
+                    break
+                else:
+                    tokens.append((siguiente_tok.lineno, siguiente_tok.type, siguiente_tok.value))
+                    break
+        else:
+            tokens.append((tok.lineno, tok.type, tok.value))
     return tokens

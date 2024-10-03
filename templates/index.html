@@ -17,29 +17,18 @@
 
         <div class="tables-container">
 
-            <h2>Resultado Sintáctico:</h2>
-            {% if syntax_result.result %}
-                <div class="sintactic-result">{{ syntax_result.result }}</div>
-            {% else %}
-                <div class="sintactic-error">
-                    {% for error in syntax_result.errors %}
-                        <p>{{ error }}</p>
-                    {% endfor %}
-                </div>
-            {% endif %}
-            
             <h2>Tokens Identificados:</h2>
             <div class="table-box">
                 <table border="1">
                     <thead>
                         <tr>
-                            <th>Linea</th>
-                            <th>Token</th>
-                            <th>P.R.</th>
-                            <th>ID</th>
+                            <th>Línea</th>
+                            <th>Valor del Token</th>
+                            <th>Palabra Reservada</th>
+                            <th>Identificador</th>
                             <th>Variable</th>
-                            <th>Numero</th>
-                            <th>Simbolo</th>
+                            <th>Número</th>
+                            <th>Símbolo</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -47,12 +36,12 @@
                             {% for token in tokens %}
                             <tr>
                                 <td>{{ token[0] }}</td> <!-- Línea -->
-                                <td>{{ token[1] }}</td> <!-- Tipo de Token -->
+                                <td>{{ token[2] }}</td> <!-- Valor del Token -->
                                 <td>{{ 'X' if token[1] in ['PROGRAMA', 'INT', 'READ', 'PRINTF', 'END'] else '' }}</td> <!-- Palabra Reservada -->
                                 <td>{{ 'X' if token[1] == 'IDENTIFICADOR' else '' }}</td> <!-- Identificador -->
                                 <td>{{ 'X' if token[1] == 'VARIABLE' else '' }}</td> <!-- Variable -->
                                 <td>{{ 'X' if token[1] == 'ENTERO' else '' }}</td> <!-- Número -->
-                                <td>{{ 'X' if token[1] in ['LPAR', 'RPAR', 'LCOR', 'RCOR', 'PUNTOCOMA', 'COMA', 'SUMA', 'RESTA', 'MULT', 'DIV', 'ASIGNAR'] else '' }}</td> <!-- Símbolo -->
+                                <td>{{ 'X' if token[1] in ['SUMA', 'RESTA', 'MULT', 'DIV', 'ASIGNAR', 'LPAR', 'RPAR', 'LCOR', 'RCOR', 'PUNTOCOMA', 'COMA'] else '' }}</td> <!-- Símbolo -->
                             </tr>
                             {% endfor %}
                         {% else %}
@@ -86,6 +75,11 @@
                         </tr>
                     </tbody>
                 </table>
+            </div>
+
+            <h2>Resultado Sintáctico:</h2>
+            <div class="{{ 'sintactic-result' if syntax_result.correct else 'sintactic-error' }}">
+                {{ syntax_result.message }}
             </div>
             
         </div>

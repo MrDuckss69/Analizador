@@ -28,3 +28,7 @@ programa suma(){
 printf("la suma es")
  end;
 }
+
+agregar un contador de tokens que te diga el total y cuantos tokens hay en cada tipo
+
+que te diga si la estructura sintactica es correcta

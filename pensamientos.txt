@@ -25,7 +25,7 @@ programa suma(){
  read a;
  read b;
  c=a+b;
-printf("la suma es")
+printf("la suma es");
  end;
 }
 

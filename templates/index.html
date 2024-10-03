@@ -44,7 +44,7 @@
                             <tr>
                                 <td>{{ token[0] }}</td> <!-- Línea -->
                                 <td>{{ token[2] }}</td> <!-- Valor del Token -->
-                                <td>{{ 'X' if token[1] in ['PROGRAMA', 'INT', 'READ', 'PRINTF', 'END'] else '' }}</td> <!-- Palabra Reservada -->
+                                <td>{{ 'X' if token[1] in ['PROGRAMA', 'DATA', 'READ', 'PRINTF', 'END', 'SI', 'SINO', 'PARA', 'MIENTRAS'] else '' }}</td> <!-- Palabra Reservada -->
                                 <td>{{ 'X' if token[1] == 'IDENTIFICADOR' else '' }}</td> <!-- Identificador -->
                                 <td>{{ 'X' if token[1] == 'VARIABLE' else '' }}</td> <!-- Variable -->
                                 <td>{{ 'X' if token[1] == 'ENTERO' else '' }}</td> <!-- Número -->

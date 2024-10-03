@@ -6,7 +6,6 @@ def p_programa(p):
     '''programa : PROGRAMA IDENTIFICADOR LPAR RPAR LCOR cuerpo END PUNTOCOMA RCOR'''
     p[0] = ('programa', p[2], p[6])
 
-
 def p_cuerpo(p):
     '''cuerpo : declaraciones'''
     p[0] = ('cuerpo', p[1])
@@ -29,7 +28,7 @@ def p_declaracion(p):
 
 def p_tipo(p):
     '''tipo : INT'''
-    p[0] = p[1]
+    p[0] = ('int', p[1])
 
 def p_lista_identificadores(p):
     '''lista_identificadores : VARIABLE
@@ -118,8 +117,8 @@ def count_tokens(tokens):
         "symbols": 0
     }
     
-    reserved_words = {'programa', 'int', 'read', 'printf', 'end', 'si', 'sino', 'para', 'mientras'}
-    symbols = {'suma', 'resta', 'mult', 'div', 'asignar', 'and', 'or', 'not', 'menorque', 'mayorque', 'menorigual', 'mayorigual', 'igual', 'diferente', 'numeral', 'lpar', 'rpar', 'lcor', 'rcor', 'llla', 'rlla', 'puntocoma', 'coma', 'comados', 'mayorder', 'mayorizq'}
+    reserved_words = {'PROGRAMA', 'INT', 'READ', 'PRINTF', 'END', 'SI', 'SINO', 'PARA', 'MIENTRAS'}
+    symbols = {'SUMA', 'RESTA', 'MULT', 'DIV', 'ASIGNAR', 'AND', 'OR', 'NOT', 'MENORQUE', 'MAYORQUE', 'MENORIGUAL', 'MAYORIGUAL', 'IGUAL', 'DIFERENTE', 'NUMERAL', 'LPAR', 'RPAR', 'LCOR', 'RCOR', 'LLLA', 'RLLA', 'PUNTOCOMA', 'COMA', 'COMADOS', 'MAYORDER', 'MAYORIZQ'}
     
     for token in tokens:
         if token[1] in reserved_words:

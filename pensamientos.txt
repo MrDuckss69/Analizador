@@ -1,0 +1,30 @@
+1-Modificar el Index.html hecho
+2- Ajustar el lexer para aceptar la cadena hecho
+3-Buscar como identificar las variables de los identificadores dentro de los "" hecho
+4-Modificar el parser
+5-hacer que el Parser pueda analizar diferentes estructuras
+
+
+
+2- completado
+
+programa como palabra reservada
+suma (identificador, puede ser cualquiera)
+(){} tienen que ir a fuerzas (que las {} tienen que tener un inicio y final)
+int palabra reservada
+a, b, c varibles (se puede reemplazar)
+; simbolo
+read palabra reservada
+printf como palabra reservada
++, = simbolos
+"la suma es" como identificador
+end como palabra reservada
+
+programa suma(){
+ int a,b,c;
+ read a;
+ read b;
+ c=a+b;
+printf("la suma es")
+ end;
+}

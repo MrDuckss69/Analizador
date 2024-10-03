@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Análisis Léxico y Sintáctico</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Análisis Léxico y Sintáctico</h1>
+        <form method="POST">
+            <textarea name="text" rows="10" cols="50">{{ text }}</textarea><br>
+            <input type="submit" value="Analizar">
+            <input type="reset" value="Borrar" onclick="clearResults()">
+        </form>
+
+        <div class="tables-container">
+
+            <h2>Resultado Sintáctico:</h2>
+            {% if syntax_result %}
+                {% if "Error" in syntax_result %}
+                    <div class="sintactic-error">{{ syntax_result }}</div>
+                {% else %}
+                    <div class="sintactic-result">{{ syntax_result }}</div>
+                {% endif %}
+            {% endif %}
+            
+            <h2>Tokens Identificados:</h2>
+            <div class="table-box">
+                <table border="1">
+                    <thead>
+                        <tr>
+                            <th>Linea</th>
+                            <th>Token</th>
+                            <th>P.R.</th>
+                            <th>ID</th>
+                            <th>Variable</th>
+                            <th>Numero</th>
+                            <th>Simbolo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if tokens %}
+                            {% for token in tokens %}
+                            <tr>
+                                <td>{{ token[0] }}</td> <!-- Línea -->
+                                <td>{{ token[1] }}</td> <!-- Tipo de Token -->
+                                <td>{{ 'X' if token[1] in ['PROGRAMA', 'INT', 'READ', 'PRINTF', 'END'] else '' }}</td> <!-- Palabra Reservada -->
+                                <td>{{ 'X' if token[1] == 'IDENTIFICADOR' else '' }}</td> <!-- Identificador -->
+                                <td>{{ 'X' if token[1] == 'VARIABLE' else '' }}</td> <!-- Variable -->
+                                <td>{{ 'X' if token[1] == 'ENTERO' else '' }}</td> <!-- Número -->
+                                <td>{{ 'X' if token[1] in ['LPAR', 'RPAR', 'LCOR', 'RCOR', 'PUNTOCOMA', 'COMA', 'SUMA', 'RESTA', 'MULT', 'DIV', 'ASIGNAR'] else '' }}</td> <!-- Símbolo -->
+                            </tr>
+                            {% endfor %}
+                        {% else %}
+                            <tr><td colspan="7">No se encontraron tokens.</td></tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+
+            
+        </div>
+    </div>
+
+    <script>
+        function clearResults() {
+            // Limpiar el contenido del textarea
+            document.querySelector('textarea[name="text"]').value = '';
+
+            // Limpiar resultados sintácticos
+            document.querySelector('.sintactic-result')?.remove();
+            document.querySelector('.sintactic-error')?.remove();
+
+            // Limpiar tabla de tokens
+            const tokenTableBody = document.querySelector('table tbody');
+            tokenTableBody.innerHTML = '<tr><td colspan="7">No se encontraron tokens.</td></tr>';
+        }
+    </script>
+</body>
+</html>

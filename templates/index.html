@@ -18,12 +18,14 @@
         <div class="tables-container">
 
             <h2>Resultado Sintáctico:</h2>
-            {% if syntax_result %}
-                {% if "Error" in syntax_result %}
-                    <div class="sintactic-error">{{ syntax_result }}</div>
-                {% else %}
-                    <div class="sintactic-result">{{ syntax_result }}</div>
-                {% endif %}
+            {% if syntax_result.result %}
+                <div class="sintactic-result">{{ syntax_result.result }}</div>
+            {% else %}
+                <div class="sintactic-error">
+                    {% for error in syntax_result.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
             {% endif %}
             
             <h2>Tokens Identificados:</h2>
@@ -60,6 +62,31 @@
                 </table>
             </div>
 
+            <h2>Contador de Tokens:</h2>
+            <div class="table-box">
+                <table border="1">
+                    <thead>
+                        <tr>
+                            <th>Total de tokens</th>
+                            <th>Palabras reservadas</th>
+                            <th>Identificadores</th>
+                            <th>Variables</th>
+                            <th>Números</th>
+                            <th>Simbolos</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{ token_counts.total }}</td>
+                            <td>{{ token_counts.reserved_words }}</td>
+                            <td>{{ token_counts.identifiers }}</td>
+                            <td>{{ token_counts.variables }}</td>
+                            <td>{{ token_counts.numbers }}</td>
+                            <td>{{ token_counts.symbols }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
             
         </div>
     </div>

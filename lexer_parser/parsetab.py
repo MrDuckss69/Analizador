@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'AND ASIGNAR COMA COMADOS DIFERENTE DIV END ENTERO IDENTIFICADOR IGUAL INT LCOR LLLA LPAR MAYORDER MAYORIGUAL MAYORIZQ MAYORQUE MENORIGUAL MENORQUE MIENTRAS MULT NOT NUMERAL OR PARA PRINTF PRINTLN PROGRAMA PUNTOCOMA RCOR READ RESTA RLLA RPAR SI SINO SUMA VARIABLEprograma : PROGRAMA IDENTIFICADOR LPAR RPAR LCOR declaraciones RCORdeclaraciones : declaraciones declaracion\n                     | declaraciondeclaracion : INT lista_variables PUNTOCOMA\n                   | READ VARIABLE PUNTOCOMA\n                   | PRINTF LPAR COMADOS VARIABLE COMADOS RPAR PUNTOCOMA\n                   | VARIABLE ASIGNAR VARIABLE SUMA VARIABLE PUNTOCOMA\n                   | END PUNTOCOMAlista_variables : VARIABLE COMA lista_variables\n                       | VARIABLE'
+_lr_signature = 'AND ASIGNAR CADENA COMA COMADOS DIFERENTE DIV END ENTERO IDENTIFICADOR IGUAL INT LCOR LLLA LPAR MAYORDER MAYORIGUAL MAYORIZQ MAYORQUE MENORIGUAL MENORQUE MIENTRAS MULT NOT NUMERAL OR PARA PRINTF PRINTLN PROGRAMA PUNTOCOMA RCOR READ RESTA RLLA RPAR SI SINO SUMA VARIABLEprograma : PROGRAMA IDENTIFICADOR LPAR RPAR LCOR declaraciones RCORdeclaraciones : declaraciones declaracion\n                     | declaraciondeclaracion : INT lista_variables PUNTOCOMA\n                   | READ VARIABLE PUNTOCOMA\n                   | PRINTF LPAR COMADOS CADENA COMADOS RPAR PUNTOCOMA\n                   | VARIABLE ASIGNAR VARIABLE SUMA VARIABLE PUNTOCOMA\n                   | END PUNTOCOMAlista_variables : VARIABLE COMA lista_variables\n                       | VARIABLE'
     
-_lr_action_items = {'PROGRAMA':([0,],[2,]),'$end':([1,14,],[0,-1,]),'IDENTIFICADOR':([2,],[3,]),'LPAR':([3,12,],[4,20,]),'RPAR':([4,31,],[5,33,]),'LCOR':([5,],[6,]),'INT':([6,7,8,15,21,22,24,32,34,],[9,9,-3,-2,-8,-4,-5,-7,-6,]),'READ':([6,7,8,15,21,22,24,32,34,],[10,10,-3,-2,-8,-4,-5,-7,-6,]),'PRINTF':([6,7,8,15,21,22,24,32,34,],[12,12,-3,-2,-8,-4,-5,-7,-6,]),'VARIABLE':([6,7,8,9,10,15,19,21,22,23,24,26,28,32,34,],[11,11,-3,17,18,-2,25,-8,-4,17,-5,29,30,-7,-6,]),'END':([6,7,8,15,21,22,24,32,34,],[13,13,-3,-2,-8,-4,-5,-7,-6,]),'RCOR':([7,8,15,21,22,24,32,34,],[14,-3,-2,-8,-4,-5,-7,-6,]),'ASIGNAR':([11,],[19,]),'PUNTOCOMA':([13,16,17,18,27,30,33,],[21,22,-10,24,-9,32,34,]),'COMA':([17,],[23,]),'COMADOS':([20,29,],[26,31,]),'SUMA':([25,],[28,]),}
+_lr_action_items = {'PROGRAMA':([0,],[2,]),'$end':([1,14,],[0,-1,]),'IDENTIFICADOR':([2,],[3,]),'LPAR':([3,12,],[4,20,]),'RPAR':([4,31,],[5,33,]),'LCOR':([5,],[6,]),'INT':([6,7,8,15,21,22,24,32,34,],[9,9,-3,-2,-8,-4,-5,-7,-6,]),'READ':([6,7,8,15,21,22,24,32,34,],[10,10,-3,-2,-8,-4,-5,-7,-6,]),'PRINTF':([6,7,8,15,21,22,24,32,34,],[12,12,-3,-2,-8,-4,-5,-7,-6,]),'VARIABLE':([6,7,8,9,10,15,19,21,22,23,24,28,32,34,],[11,11,-3,17,18,-2,25,-8,-4,17,-5,30,-7,-6,]),'END':([6,7,8,15,21,22,24,32,34,],[13,13,-3,-2,-8,-4,-5,-7,-6,]),'RCOR':([7,8,15,21,22,24,32,34,],[14,-3,-2,-8,-4,-5,-7,-6,]),'ASIGNAR':([11,],[19,]),'PUNTOCOMA':([13,16,17,18,27,30,33,],[21,22,-10,24,-9,32,34,]),'COMA':([17,],[23,]),'COMADOS':([20,29,],[26,31,]),'SUMA':([25,],[28,]),'CADENA':([26,],[29,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -32,7 +32,7 @@ _lr_productions = [
   ('declaraciones -> declaracion','declaraciones',1,'p_declaraciones','parser.py',12),
   ('declaracion -> INT lista_variables PUNTOCOMA','declaracion',3,'p_declaracion','parser.py',16),
   ('declaracion -> READ VARIABLE PUNTOCOMA','declaracion',3,'p_declaracion','parser.py',17),
-  ('declaracion -> PRINTF LPAR COMADOS VARIABLE COMADOS RPAR PUNTOCOMA','declaracion',7,'p_declaracion','parser.py',18),
+  ('declaracion -> PRINTF LPAR COMADOS CADENA COMADOS RPAR PUNTOCOMA','declaracion',7,'p_declaracion','parser.py',18),
   ('declaracion -> VARIABLE ASIGNAR VARIABLE SUMA VARIABLE PUNTOCOMA','declaracion',6,'p_declaracion','parser.py',19),
   ('declaracion -> END PUNTOCOMA','declaracion',2,'p_declaracion','parser.py',20),
   ('lista_variables -> VARIABLE COMA lista_variables','lista_variables',3,'p_lista_variables','parser.py',24),

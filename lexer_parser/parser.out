@@ -34,7 +34,7 @@ Rule 2     declaraciones -> declaraciones declaracion
 Rule 3     declaraciones -> declaracion
 Rule 4     declaracion -> INT lista_variables PUNTOCOMA
 Rule 5     declaracion -> READ VARIABLE PUNTOCOMA
-Rule 6     declaracion -> PRINTF LPAR COMADOS VARIABLE COMADOS RPAR PUNTOCOMA
+Rule 6     declaracion -> PRINTF LPAR COMADOS CADENA COMADOS RPAR PUNTOCOMA
 Rule 7     declaracion -> VARIABLE ASIGNAR VARIABLE SUMA VARIABLE PUNTOCOMA
 Rule 8     declaracion -> END PUNTOCOMA
 Rule 9     lista_variables -> VARIABLE COMA lista_variables
@@ -44,6 +44,7 @@ Terminals, with rules where they appear
 
 AND                  : 
 ASIGNAR              : 7
+CADENA               : 6
 COMA                 : 9
 COMADOS              : 6 6
 DIFERENTE            : 
@@ -80,7 +81,7 @@ RPAR                 : 1 6
 SI                   : 
 SINO                 : 
 SUMA                 : 7
-VARIABLE             : 5 6 7 7 7 9 10
+VARIABLE             : 5 7 7 7 9 10
 error                : 
 
 Nonterminals, with rules where they appear
@@ -142,7 +143,7 @@ state 6
     (3) declaraciones -> . declaracion
     (4) declaracion -> . INT lista_variables PUNTOCOMA
     (5) declaracion -> . READ VARIABLE PUNTOCOMA
-    (6) declaracion -> . PRINTF LPAR COMADOS VARIABLE COMADOS RPAR PUNTOCOMA
+    (6) declaracion -> . PRINTF LPAR COMADOS CADENA COMADOS RPAR PUNTOCOMA
     (7) declaracion -> . VARIABLE ASIGNAR VARIABLE SUMA VARIABLE PUNTOCOMA
     (8) declaracion -> . END PUNTOCOMA
 
@@ -161,7 +162,7 @@ state 7
     (2) declaraciones -> declaraciones . declaracion
     (4) declaracion -> . INT lista_variables PUNTOCOMA
     (5) declaracion -> . READ VARIABLE PUNTOCOMA
-    (6) declaracion -> . PRINTF LPAR COMADOS VARIABLE COMADOS RPAR PUNTOCOMA
+    (6) declaracion -> . PRINTF LPAR COMADOS CADENA COMADOS RPAR PUNTOCOMA
     (7) declaracion -> . VARIABLE ASIGNAR VARIABLE SUMA VARIABLE PUNTOCOMA
     (8) declaracion -> . END PUNTOCOMA
 
@@ -212,7 +213,7 @@ state 11
 
 state 12
 
-    (6) declaracion -> PRINTF . LPAR COMADOS VARIABLE COMADOS RPAR PUNTOCOMA
+    (6) declaracion -> PRINTF . LPAR COMADOS CADENA COMADOS RPAR PUNTOCOMA
 
     LPAR            shift and go to state 20
 
@@ -275,7 +276,7 @@ state 19
 
 state 20
 
-    (6) declaracion -> PRINTF LPAR . COMADOS VARIABLE COMADOS RPAR PUNTOCOMA
+    (6) declaracion -> PRINTF LPAR . COMADOS CADENA COMADOS RPAR PUNTOCOMA
 
     COMADOS         shift and go to state 26
 
@@ -335,9 +336,9 @@ state 25
 
 state 26
 
-    (6) declaracion -> PRINTF LPAR COMADOS . VARIABLE COMADOS RPAR PUNTOCOMA
+    (6) declaracion -> PRINTF LPAR COMADOS . CADENA COMADOS RPAR PUNTOCOMA
 
-    VARIABLE        shift and go to state 29
+    CADENA          shift and go to state 29
 
 
 state 27
@@ -356,7 +357,7 @@ state 28
 
 state 29
 
-    (6) declaracion -> PRINTF LPAR COMADOS VARIABLE . COMADOS RPAR PUNTOCOMA
+    (6) declaracion -> PRINTF LPAR COMADOS CADENA . COMADOS RPAR PUNTOCOMA
 
     COMADOS         shift and go to state 31
 
@@ -370,7 +371,7 @@ state 30
 
 state 31
 
-    (6) declaracion -> PRINTF LPAR COMADOS VARIABLE COMADOS . RPAR PUNTOCOMA
+    (6) declaracion -> PRINTF LPAR COMADOS CADENA COMADOS . RPAR PUNTOCOMA
 
     RPAR            shift and go to state 33
 
@@ -389,19 +390,19 @@ state 32
 
 state 33
 
-    (6) declaracion -> PRINTF LPAR COMADOS VARIABLE COMADOS RPAR . PUNTOCOMA
+    (6) declaracion -> PRINTF LPAR COMADOS CADENA COMADOS RPAR . PUNTOCOMA
 
     PUNTOCOMA       shift and go to state 34
 
 
 state 34
 
-    (6) declaracion -> PRINTF LPAR COMADOS VARIABLE COMADOS RPAR PUNTOCOMA .
+    (6) declaracion -> PRINTF LPAR COMADOS CADENA COMADOS RPAR PUNTOCOMA .
 
-    RCOR            reduce using rule 6 (declaracion -> PRINTF LPAR COMADOS VARIABLE COMADOS RPAR PUNTOCOMA .)
-    INT             reduce using rule 6 (declaracion -> PRINTF LPAR COMADOS VARIABLE COMADOS RPAR PUNTOCOMA .)
-    READ            reduce using rule 6 (declaracion -> PRINTF LPAR COMADOS VARIABLE COMADOS RPAR PUNTOCOMA .)
-    PRINTF          reduce using rule 6 (declaracion -> PRINTF LPAR COMADOS VARIABLE COMADOS RPAR PUNTOCOMA .)
-    VARIABLE        reduce using rule 6 (declaracion -> PRINTF LPAR COMADOS VARIABLE COMADOS RPAR PUNTOCOMA .)
-    END             reduce using rule 6 (declaracion -> PRINTF LPAR COMADOS VARIABLE COMADOS RPAR PUNTOCOMA .)
+    RCOR            reduce using rule 6 (declaracion -> PRINTF LPAR COMADOS CADENA COMADOS RPAR PUNTOCOMA .)
+    INT             reduce using rule 6 (declaracion -> PRINTF LPAR COMADOS CADENA COMADOS RPAR PUNTOCOMA .)
+    READ            reduce using rule 6 (declaracion -> PRINTF LPAR COMADOS CADENA COMADOS RPAR PUNTOCOMA .)
+    PRINTF          reduce using rule 6 (declaracion -> PRINTF LPAR COMADOS CADENA COMADOS RPAR PUNTOCOMA .)
+    VARIABLE        reduce using rule 6 (declaracion -> PRINTF LPAR COMADOS CADENA COMADOS RPAR PUNTOCOMA .)
+    END             reduce using rule 6 (declaracion -> PRINTF LPAR COMADOS CADENA COMADOS RPAR PUNTOCOMA .)
 

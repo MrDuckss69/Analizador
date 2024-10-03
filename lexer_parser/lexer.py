@@ -21,6 +21,7 @@ tokens = [
     'VARIABLE',  # Nuevo token para variables
     'ENTERO', 
     'ASIGNAR',  # = 
+    'CADENA',  # Cadenas de texto
     # Operaciones
     'SUMA',  # +
     'RESTA',  # -
@@ -82,7 +83,6 @@ t_MAYORIZQ = r'>>'
 # Bandera para indicar que estamos dentro de una declaración de variables
 variable_flag = False
 
-
 def t_INT(t):
     r'int'
     global variable_flag
@@ -105,11 +105,13 @@ def t_IDENTIFICADOR(t):
         t.type = reservadas.get(t.value, 'IDENTIFICADOR')  # Si es una palabra reservada, cambiar tipo
     return t
 
-
-
 def t_ENTERO(t):
     r'\d+'
     t.value = int(t.value)
+    return t
+
+def t_CADENA(t):
+    r'\".*?\"'
     return t
 
 # Ignorar espacios y tabulaciones
@@ -134,7 +136,6 @@ def t_COMENTARIO_MULTILINEA(t):
 def t_error(t):
     print(f"Caracter ilegal '{t.value[0]}' en la línea {t.lineno}")
     t.lexer.skip(1)
-
 
 lexer = lex.lex()
 

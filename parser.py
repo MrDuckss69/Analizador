@@ -1,10 +1,11 @@
 import ply.yacc as yacc
-from lexer import tokens, variables  # Importar los tokens y el conjunto de variables desde el lexer
+from lexer import tokens, variables
 
 # Definir la gramática
 def p_programa(p):
-    '''programa : PROGRAMA IDENTIFICADOR LPAR RPAR LCOR cuerpo RCOR END PUNTOCOMA'''
+    '''programa : PROGRAMA IDENTIFICADOR LPAR RPAR LCOR cuerpo END PUNTOCOMA RCOR'''
     p[0] = ('programa', p[2], p[6])
+
 
 def p_cuerpo(p):
     '''cuerpo : declaraciones'''
@@ -22,7 +23,8 @@ def p_declaracion(p):
     '''declaracion : tipo lista_identificadores PUNTOCOMA
                    | asignacion PUNTOCOMA
                    | lectura PUNTOCOMA
-                   | escritura PUNTOCOMA'''
+                   | escritura PUNTOCOMA
+                   | expresion PUNTOCOMA'''  # Aceptar expresiones aritméticas
     p[0] = p[1]
 
 def p_tipo(p):
@@ -30,8 +32,8 @@ def p_tipo(p):
     p[0] = p[1]
 
 def p_lista_identificadores(p):
-    '''lista_identificadores : IDENTIFICADOR
-                             | lista_identificadores COMA IDENTIFICADOR'''
+    '''lista_identificadores : VARIABLE
+                             | lista_identificadores COMA VARIABLE'''
     if len(p) == 2:
         variables.add(p[1])
         p[0] = [p[1]]
@@ -48,11 +50,13 @@ def p_lectura(p):
     p[0] = ('lectura', p[2])
 
 def p_escritura(p):
-    '''escritura : PRINTF LPAR CADENA RPAR
-                 | PRINTF LPAR CADENA COMA VARIABLE RPAR'''
+    '''escritura : PRINTF LPAR IDENTIFICADOR RPAR
+                 | PRINTF LPAR CADENA COMA expresion RPAR'''
     if len(p) == 5:
+        # Caso con solo una cadena
         p[0] = ('escritura', p[3])
-    else:
+    elif len(p) == 7:
+        # Caso con cadena y una expresión
         p[0] = ('escritura', p[3], p[5])
 
 def p_expresion(p):
@@ -60,7 +64,7 @@ def p_expresion(p):
                  | expresion RESTA termino
                  | termino'''
     if len(p) == 4:
-        p[0] = (p[2], p[1], p[3])
+        p[0] = ('expresion_binaria', p[2], p[1], p[3])
     else:
         p[0] = p[1]
 
@@ -86,8 +90,10 @@ def p_factor(p):
 # Manejo de errores
 def p_error(p):
     if p:
-        raise SyntaxError(f"Error de sintaxis en '{p.value}' en la línea {p.lineno}")
+        print(f"Error de sintaxis en '{p.value}'")
+        raise SyntaxError(f"Error de sintaxis en la línea {p.lineno}: '{p.value}'")
     else:
+        print("Error de sintaxis en EOF")
         raise SyntaxError("Error de sintaxis en EOF")
 
 # Construir el parser
@@ -95,8 +101,11 @@ parser = yacc.yacc()
 
 # Función para probar el parser
 def parse(data):
-    result = parser.parse(data)
-    return result
+    try:
+        result = parser.parse(data)
+        return result, None
+    except SyntaxError as e:
+        return None, str(e)
 
 # Función para contar tokens
 def count_tokens(tokens):
@@ -109,8 +118,8 @@ def count_tokens(tokens):
         "symbols": 0
     }
     
-    reserved_words = {'PROGRAMA', 'INT', 'READ', 'PRINTF', 'PRINTLN', 'END', 'SI', 'SINO', 'PARA', 'MIENTRAS'}
-    symbols = {'SUMA', 'RESTA', 'MULT', 'DIV', 'ASIGNAR', 'AND', 'OR', 'NOT', 'MENORQUE', 'MAYORQUE', 'MENORIGUAL', 'MAYORIGUAL', 'IGUAL', 'DIFERENTE', 'NUMERAL', 'LPAR', 'RPAR', 'LCOR', 'RCOR', 'LLLA', 'RLLA', 'PUNTOCOMA', 'COMA', 'COMADOS', 'MAYORDER', 'MAYORIZQ'}
+    reserved_words = {'programa', 'int', 'read', 'printf', 'end', 'si', 'sino', 'para', 'mientras'}
+    symbols = {'suma', 'resta', 'mult', 'div', 'asignar', 'and', 'or', 'not', 'menorque', 'mayorque', 'menorigual', 'mayorigual', 'igual', 'diferente', 'numeral', 'lpar', 'rpar', 'lcor', 'rcor', 'llla', 'rlla', 'puntocoma', 'coma', 'comados', 'mayorder', 'mayorizq'}
     
     for token in tokens:
         if token[1] in reserved_words:
@@ -128,8 +137,8 @@ def count_tokens(tokens):
 
 # Función para analizar la sintaxis
 def parse_syntax(data):
-    try:
-        result = parse(data)
+    result, error = parse(data)
+    if error:
+        return {"correct": False, "message": error}
+    else:
         return {"correct": True, "message": "Análisis sintáctico correcto", "result": result}
-    except SyntaxError as e:
-        return {"correct": False, "message": str(e)}

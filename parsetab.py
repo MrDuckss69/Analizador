@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'AND ASIGNAR CADENA COMA COMADOS DIFERENTE DIV END ENTERO IDENTIFICADOR IGUAL INT LCOR LLLA LPAR MAYORDER MAYORIGUAL MAYORIZQ MAYORQUE MENORIGUAL MENORQUE MIENTRAS MULT NOT NUMERAL OR PARA PRINTF PROGRAMA PUNTOCOMA RCOR READ RESTA RLLA RPAR SI SINO SUMA VARIABLEprograma : PROGRAMA IDENTIFICADOR LPAR RPAR LCOR cuerpo RCOR END PUNTOCOMAcuerpo : declaracionesdeclaraciones : declaraciones declaracion\n                     | declaraciondeclaracion : tipo lista_identificadores PUNTOCOMA\n                   | asignacion PUNTOCOMA\n                   | lectura PUNTOCOMA\n                   | escritura PUNTOCOMAtipo : INTlista_identificadores : IDENTIFICADOR\n                             | lista_identificadores COMA IDENTIFICADORasignacion : VARIABLE ASIGNAR expresionlectura : READ VARIABLEescritura : PRINTF LPAR CADENA RPAR\n                 | PRINTF LPAR CADENA COMA VARIABLE RPARexpresion : expresion SUMA termino\n                 | expresion RESTA termino\n                 | terminotermino : termino MULT factor\n               | termino DIV factor\n               | factorfactor : ENTERO\n              | VARIABLE\n              | LPAR expresion RPAR\n              | CADENA'
+_lr_signature = 'AND ASIGNAR CADENA COMA COMADOS DIFERENTE DIV END ENTERO IDENTIFICADOR IGUAL INT LCOR LLLA LPAR MAYORDER MAYORIGUAL MAYORIZQ MAYORQUE MENORIGUAL MENORQUE MIENTRAS MULT NOT NUMERAL OR PARA PRINTF PROGRAMA PUNTOCOMA RCOR READ RESTA RLLA RPAR SI SINO SUMA VARIABLEprograma : PROGRAMA IDENTIFICADOR LPAR RPAR LCOR cuerpo END PUNTOCOMA RCORcuerpo : declaracionesdeclaraciones : declaraciones declaracion\n                     | declaraciondeclaracion : tipo lista_identificadores PUNTOCOMA\n                   | asignacion PUNTOCOMA\n                   | lectura PUNTOCOMA\n                   | escritura PUNTOCOMA\n                   | expresion PUNTOCOMAtipo : INTlista_identificadores : VARIABLE\n                             | lista_identificadores COMA VARIABLEasignacion : VARIABLE ASIGNAR expresionlectura : READ VARIABLEescritura : PRINTF LPAR IDENTIFICADOR RPAR\n                 | PRINTF LPAR CADENA COMA expresion RPARexpresion : expresion SUMA termino\n                 | expresion RESTA termino\n                 | terminotermino : termino MULT factor\n               | termino DIV factor\n               | factorfactor : ENTERO\n              | VARIABLE\n              | LPAR expresion RPAR\n              | CADENA'
     
-_lr_action_items = {'PROGRAMA':([0,],[2,]),'$end':([1,39,],[0,-1,]),'IDENTIFICADOR':([2,10,14,30,],[3,21,-9,40,]),'LPAR':([3,17,25,36,41,42,43,44,],[4,27,36,36,36,36,36,36,]),'RPAR':([4,31,33,34,35,37,38,45,48,49,50,51,52,53,],[5,-23,-18,-21,-22,-25,46,52,-16,-17,-19,-20,-24,54,]),'LCOR':([5,],[6,]),'INT':([6,8,9,19,22,23,24,29,],[14,14,-4,-3,-6,-7,-8,-5,]),'VARIABLE':([6,8,9,16,19,22,23,24,25,29,36,41,42,43,44,47,],[15,15,-4,26,-3,-6,-7,-8,31,-5,31,31,31,31,31,53,]),'READ':([6,8,9,19,22,23,24,29,],[16,16,-4,-3,-6,-7,-8,-5,]),'PRINTF':([6,8,9,19,22,23,24,29,],[17,17,-4,-3,-6,-7,-8,-5,]),'RCOR':([7,8,9,19,22,23,24,29,],[18,-2,-4,-3,-6,-7,-8,-5,]),'PUNTOCOMA':([11,12,13,20,21,26,28,31,32,33,34,35,37,40,46,48,49,50,51,52,54,],[22,23,24,29,-10,-13,39,-23,-12,-18,-21,-22,-25,-11,-14,-16,-17,-19,-20,-24,-15,]),'ASIGNAR':([15,],[25,]),'END':([18,],[28,]),'COMA':([20,21,38,40,],[30,-10,47,-11,]),'ENTERO':([25,36,41,42,43,44,],[35,35,35,35,35,35,]),'CADENA':([25,27,36,41,42,43,44,],[37,38,37,37,37,37,37,]),'MULT':([31,33,34,35,37,48,49,50,51,52,],[-23,43,-21,-22,-25,43,43,-19,-20,-24,]),'DIV':([31,33,34,35,37,48,49,50,51,52,],[-23,44,-21,-22,-25,44,44,-19,-20,-24,]),'SUMA':([31,32,33,34,35,37,45,48,49,50,51,52,],[-23,41,-18,-21,-22,-25,41,-16,-17,-19,-20,-24,]),'RESTA':([31,32,33,34,35,37,45,48,49,50,51,52,],[-23,42,-18,-21,-22,-25,42,-16,-17,-19,-20,-24,]),}
+_lr_action_items = {'PROGRAMA':([0,],[2,]),'$end':([1,52,],[0,-1,]),'IDENTIFICADOR':([2,38,],[3,48,]),'LPAR':([3,6,7,9,10,19,27,30,31,32,33,34,35,36,39,40,43,55,],[4,7,7,7,-4,38,-3,-6,-7,-8,-9,7,7,7,7,7,-5,7,]),'RPAR':([4,20,21,22,23,24,25,41,45,46,48,50,51,56,],[5,-26,-19,-22,-23,41,-24,-25,-17,-18,54,-20,-21,57,]),'LCOR':([5,],[6,]),'INT':([6,9,10,27,30,31,32,33,43,],[16,16,-4,-3,-6,-7,-8,-9,-5,]),'VARIABLE':([6,7,9,10,11,16,18,27,30,31,32,33,34,35,36,39,40,43,44,55,],[17,25,17,-4,29,-10,37,-3,-6,-7,-8,-9,25,25,25,25,25,-5,53,25,]),'READ':([6,9,10,27,30,31,32,33,43,],[18,18,-4,-3,-6,-7,-8,-9,-5,]),'PRINTF':([6,9,10,27,30,31,32,33,43,],[19,19,-4,-3,-6,-7,-8,-9,-5,]),'ENTERO':([6,7,9,10,27,30,31,32,33,34,35,36,39,40,43,55,],[23,23,23,-4,-3,-6,-7,-8,-9,23,23,23,23,23,-5,23,]),'CADENA':([6,7,9,10,27,30,31,32,33,34,35,36,38,39,40,43,55,],[20,20,20,-4,-3,-6,-7,-8,-9,20,20,20,49,20,20,-5,20,]),'END':([8,9,10,27,30,31,32,33,43,],[26,-2,-4,-3,-6,-7,-8,-9,-5,]),'PUNTOCOMA':([12,13,14,15,17,20,21,22,23,25,26,28,29,37,41,45,46,47,50,51,53,54,57,],[30,31,32,33,-24,-26,-19,-22,-23,-24,42,43,-11,-14,-25,-17,-18,-13,-20,-21,-12,-15,-16,]),'SUMA':([15,17,20,21,22,23,24,25,41,45,46,47,50,51,56,],[34,-24,-26,-19,-22,-23,34,-24,-25,-17,-18,34,-20,-21,34,]),'RESTA':([15,17,20,21,22,23,24,25,41,45,46,47,50,51,56,],[35,-24,-26,-19,-22,-23,35,-24,-25,-17,-18,35,-20,-21,35,]),'ASIGNAR':([17,],[36,]),'MULT':([17,20,21,22,23,25,41,45,46,50,51,],[-24,-26,39,-22,-23,-24,-25,39,39,-20,-21,]),'DIV':([17,20,21,22,23,25,41,45,46,50,51,],[-24,-26,40,-22,-23,-24,-25,40,40,-20,-21,]),'COMA':([28,29,49,53,],[44,-11,55,-12,]),'RCOR':([42,],[52,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'programa':([0,],[1,]),'cuerpo':([6,],[7,]),'declaraciones':([6,],[8,]),'declaracion':([6,8,],[9,19,]),'tipo':([6,8,],[10,10,]),'asignacion':([6,8,],[11,11,]),'lectura':([6,8,],[12,12,]),'escritura':([6,8,],[13,13,]),'lista_identificadores':([10,],[20,]),'expresion':([25,36,],[32,45,]),'termino':([25,36,41,42,],[33,33,48,49,]),'factor':([25,36,41,42,43,44,],[34,34,34,34,50,51,]),}
+_lr_goto_items = {'programa':([0,],[1,]),'cuerpo':([6,],[8,]),'declaraciones':([6,],[9,]),'declaracion':([6,9,],[10,27,]),'tipo':([6,9,],[11,11,]),'asignacion':([6,9,],[12,12,]),'lectura':([6,9,],[13,13,]),'escritura':([6,9,],[14,14,]),'expresion':([6,7,9,36,55,],[15,24,15,47,56,]),'termino':([6,7,9,34,35,36,55,],[21,21,21,45,46,21,21,]),'factor':([6,7,9,34,35,36,39,40,55,],[22,22,22,22,22,22,50,51,22,]),'lista_identificadores':([11,],[28,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -27,29 +27,30 @@ for _k, _v in _lr_goto_items.items():
 del _lr_goto_items
 _lr_productions = [
   ("S' -> programa","S'",1,None,None,None),
-  ('programa -> PROGRAMA IDENTIFICADOR LPAR RPAR LCOR cuerpo RCOR END PUNTOCOMA','programa',9,'p_programa','parser.py',6),
-  ('cuerpo -> declaraciones','cuerpo',1,'p_cuerpo','parser.py',10),
-  ('declaraciones -> declaraciones declaracion','declaraciones',2,'p_declaraciones','parser.py',14),
-  ('declaraciones -> declaracion','declaraciones',1,'p_declaraciones','parser.py',15),
-  ('declaracion -> tipo lista_identificadores PUNTOCOMA','declaracion',3,'p_declaracion','parser.py',22),
-  ('declaracion -> asignacion PUNTOCOMA','declaracion',2,'p_declaracion','parser.py',23),
-  ('declaracion -> lectura PUNTOCOMA','declaracion',2,'p_declaracion','parser.py',24),
-  ('declaracion -> escritura PUNTOCOMA','declaracion',2,'p_declaracion','parser.py',25),
-  ('tipo -> INT','tipo',1,'p_tipo','parser.py',29),
-  ('lista_identificadores -> IDENTIFICADOR','lista_identificadores',1,'p_lista_identificadores','parser.py',33),
-  ('lista_identificadores -> lista_identificadores COMA IDENTIFICADOR','lista_identificadores',3,'p_lista_identificadores','parser.py',34),
-  ('asignacion -> VARIABLE ASIGNAR expresion','asignacion',3,'p_asignacion','parser.py',43),
-  ('lectura -> READ VARIABLE','lectura',2,'p_lectura','parser.py',47),
-  ('escritura -> PRINTF LPAR CADENA RPAR','escritura',4,'p_escritura','parser.py',51),
-  ('escritura -> PRINTF LPAR CADENA COMA VARIABLE RPAR','escritura',6,'p_escritura','parser.py',52),
-  ('expresion -> expresion SUMA termino','expresion',3,'p_expresion','parser.py',59),
-  ('expresion -> expresion RESTA termino','expresion',3,'p_expresion','parser.py',60),
-  ('expresion -> termino','expresion',1,'p_expresion','parser.py',61),
-  ('termino -> termino MULT factor','termino',3,'p_termino','parser.py',68),
-  ('termino -> termino DIV factor','termino',3,'p_termino','parser.py',69),
-  ('termino -> factor','termino',1,'p_termino','parser.py',70),
-  ('factor -> ENTERO','factor',1,'p_factor','parser.py',77),
-  ('factor -> VARIABLE','factor',1,'p_factor','parser.py',78),
-  ('factor -> LPAR expresion RPAR','factor',3,'p_factor','parser.py',79),
-  ('factor -> CADENA','factor',1,'p_factor','parser.py',80),
+  ('programa -> PROGRAMA IDENTIFICADOR LPAR RPAR LCOR cuerpo END PUNTOCOMA RCOR','programa',9,'p_programa','parser.py',6),
+  ('cuerpo -> declaraciones','cuerpo',1,'p_cuerpo','parser.py',11),
+  ('declaraciones -> declaraciones declaracion','declaraciones',2,'p_declaraciones','parser.py',15),
+  ('declaraciones -> declaracion','declaraciones',1,'p_declaraciones','parser.py',16),
+  ('declaracion -> tipo lista_identificadores PUNTOCOMA','declaracion',3,'p_declaracion','parser.py',23),
+  ('declaracion -> asignacion PUNTOCOMA','declaracion',2,'p_declaracion','parser.py',24),
+  ('declaracion -> lectura PUNTOCOMA','declaracion',2,'p_declaracion','parser.py',25),
+  ('declaracion -> escritura PUNTOCOMA','declaracion',2,'p_declaracion','parser.py',26),
+  ('declaracion -> expresion PUNTOCOMA','declaracion',2,'p_declaracion','parser.py',27),
+  ('tipo -> INT','tipo',1,'p_tipo','parser.py',31),
+  ('lista_identificadores -> VARIABLE','lista_identificadores',1,'p_lista_identificadores','parser.py',35),
+  ('lista_identificadores -> lista_identificadores COMA VARIABLE','lista_identificadores',3,'p_lista_identificadores','parser.py',36),
+  ('asignacion -> VARIABLE ASIGNAR expresion','asignacion',3,'p_asignacion','parser.py',45),
+  ('lectura -> READ VARIABLE','lectura',2,'p_lectura','parser.py',49),
+  ('escritura -> PRINTF LPAR IDENTIFICADOR RPAR','escritura',4,'p_escritura','parser.py',53),
+  ('escritura -> PRINTF LPAR CADENA COMA expresion RPAR','escritura',6,'p_escritura','parser.py',54),
+  ('expresion -> expresion SUMA termino','expresion',3,'p_expresion','parser.py',63),
+  ('expresion -> expresion RESTA termino','expresion',3,'p_expresion','parser.py',64),
+  ('expresion -> termino','expresion',1,'p_expresion','parser.py',65),
+  ('termino -> termino MULT factor','termino',3,'p_termino','parser.py',72),
+  ('termino -> termino DIV factor','termino',3,'p_termino','parser.py',73),
+  ('termino -> factor','termino',1,'p_termino','parser.py',74),
+  ('factor -> ENTERO','factor',1,'p_factor','parser.py',81),
+  ('factor -> VARIABLE','factor',1,'p_factor','parser.py',82),
+  ('factor -> LPAR expresion RPAR','factor',3,'p_factor','parser.py',83),
+  ('factor -> CADENA','factor',1,'p_factor','parser.py',84),
 ]
